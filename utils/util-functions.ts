@@ -1,5 +1,18 @@
 import { useUserState } from "./user";
-
+export interface Tokens {
+    accessTokens: string;
+    refreshTokens: string;
+}
+export interface User {
+    id: string;
+    phone: string;
+    email: string;
+    verified?: boolean | null;
+    dateJoined?: number;
+    lastName: string;
+    password: string;
+    firstName: string;
+}
 export function getDeviceId() {
     let id = localStorage.getItem("xptk12ro")
     if (id) return id
@@ -15,23 +28,23 @@ export function getDeviceId() {
     localStorage.setItem("xptk12ro", id);
     return id;
 }
-export function setVariables(data) {
-    localStorage.setItem(`${import.meta.env.VITE_API_AKEY}`, data.accessTokens)
-    localStorage.setItem(`${import.meta.env.VITE_API_RKEY}`, data.refreshTokens)
+export function setVariables(data: Tokens) {
+    localStorage.setItem(`${process.env.NEXT_PUBLIC_API_AKEY}`, data.accessTokens)
+    localStorage.setItem(`${process.env.NEXT_PUBLIC_API_RKEY}`, data.refreshTokens)
 }
 export function getVariables() {
     return {
-        refreshTokens: localStorage.getItem(`${import.meta.env.VITE_API_RKEY}`) ?? '',
-        accessTokens: localStorage.getItem(`${import.meta.env.VITE_API_AKEY}`) ?? ''
+        refreshTokens: localStorage.getItem(`${process.env.NEXT_PUBLIC_API_RKEY}`) ?? '',
+        accessTokens: localStorage.getItem(`${process.env.NEXT_PUBLIC_API_AKEY}`) ?? ''
     }
 }
-export function setUser(user) {
-    localStorage.setItem(`${import.meta.env.VITE_API_GUEST}`, JSON.stringify(user))
+export function setUser(user: User) {
+    localStorage.setItem(`${process.env.NEXT_PUBLIC_API_GUEST}`, JSON.stringify(user))
     return user
 }
 export function getUser() {
     try {
-        const data = localStorage.getItem(`${import.meta.env.VITE_API_GUEST}`)
+        const data = localStorage.getItem(`${process.env.NEXT_PUBLIC_API_GUEST}`)
         if (!data) return null
         const user = JSON.parse(data)
         if (!user) return null
@@ -40,7 +53,7 @@ export function getUser() {
         }
         return null
 
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
         return null
     }
@@ -48,19 +61,19 @@ export function getUser() {
 export function userLoggedIn() {
     try {
 
-        const data = localStorage.getItem(`${import.meta.env.VITE_API_GUEST}`)
+        const data = localStorage.getItem(`${process.env.NEXT_PUBLIC_API_GUEST}`)
         if (!data) return false
         const user = JSON.parse(data)
         if (!user) return false
         useUserState.setState(user)
         return true
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     } catch (e) {
         return false
     }
 }
 export function clearSavedLogss() {
-    localStorage.removeItem(`${import.meta.env.VITE_API_AKEY}`)
-    localStorage.removeItem(`${import.meta.env.VITE_API_RKEY}`)
-    localStorage.removeItem(`${import.meta.env.VITE_API_GUEST}`)
+    localStorage.removeItem(`${process.env.NEXT_PUBLIC_API_AKEY}`)
+    localStorage.removeItem(`${process.env.NEXT_PUBLIC_API_RKEY}`)
+    localStorage.removeItem(`${process.env.NEXT_PUBLIC_API_GUEST}`)
 }

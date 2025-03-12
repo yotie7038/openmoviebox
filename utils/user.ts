@@ -49,7 +49,7 @@ export class UserRegistration {
         return this.fetchUser(data);
       }
       return this.getExtractError(api);
-      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return "Failed to connect to server ";
     }
@@ -74,7 +74,7 @@ export class UserRegistration {
       }
       clearSavedLogss();
       return this.getExtractError(api);
-      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return "Failed to connect to server ";
     }
@@ -96,7 +96,7 @@ export class UserRegistration {
       }
       clearSavedLogss();
       return this.getExtractError(api);
-      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return "Failed to connect to server ";
     }
